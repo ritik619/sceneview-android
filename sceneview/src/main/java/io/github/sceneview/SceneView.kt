@@ -319,7 +319,7 @@ open class SceneView @JvmOverloads constructor(
     private val uiHelper = UiHelper(UiHelper.ContextErrorPolicy.DONT_CHECK).apply {
         renderCallback = SurfaceCallback()
         attachTo(this@SceneView)
-        setDesiredSize(1280,720)
+        setDesiredSize(720,1280)
     }
     private val displayHelper = DisplayHelper(context)
     private var swapChain: SwapChain? = null
@@ -695,7 +695,6 @@ open class SceneView @JvmOverloads constructor(
             swapChain?.let { runCatching { engine.destroySwapChain(it) } }
             swapChain = engine.createSwapChain(surface)
             displayHelper.attach(renderer, display)
-            uiHelper.setDesiredSize(1280,720)
         }
 
         override fun onDetachedFromSurface() {
