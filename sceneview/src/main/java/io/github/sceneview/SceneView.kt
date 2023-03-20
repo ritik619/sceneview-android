@@ -319,7 +319,6 @@ open class SceneView @JvmOverloads constructor(
     private val uiHelper = UiHelper(UiHelper.ContextErrorPolicy.DONT_CHECK).apply {
         renderCallback = SurfaceCallback()
         attachTo(this@SceneView)
-        setDesiredSize(720,1280)
     }
     private val displayHelper = DisplayHelper(context)
     private var swapChain: SwapChain? = null
