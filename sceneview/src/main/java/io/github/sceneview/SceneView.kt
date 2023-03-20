@@ -319,6 +319,7 @@ open class SceneView @JvmOverloads constructor(
     private val uiHelper = UiHelper(UiHelper.ContextErrorPolicy.DONT_CHECK).apply {
         renderCallback = SurfaceCallback()
         attachTo(this@SceneView)
+        setDesiredSize(1280,720)
     }
     private val displayHelper = DisplayHelper(context)
     private var swapChain: SwapChain? = null
@@ -350,7 +351,7 @@ open class SceneView @JvmOverloads constructor(
     //  Return field for now will use the default node position target or maybe just don't let the
     //  user enable manipulator until the camera position is not anymore at its default
     //  targetPosition
-    protected open val cameraManipulator: Manipulator? by lazy {
+    open val cameraManipulator: Manipulator? by lazy {
         Manipulator.Builder()
             .apply {
                 cameraNode.worldPosition.let { (x, y, z) ->
@@ -497,9 +498,9 @@ open class SceneView @JvmOverloads constructor(
             }
         }
 
+        onFrame?.invoke(frameTime)
 
         transformManager.commitLocalTransformTransaction()
-        onFrame?.invoke(frameTime)
 
         // Render the scene, unless the renderer wants to skip the frame.
         if (renderer.beginFrame(swapChain!!, frameTime.nanoseconds)) {
@@ -694,6 +695,7 @@ open class SceneView @JvmOverloads constructor(
             swapChain?.let { runCatching { engine.destroySwapChain(it) } }
             swapChain = engine.createSwapChain(surface)
             displayHelper.attach(renderer, display)
+            uiHelper.setDesiredSize(1280,720)
         }
 
         override fun onDetachedFromSurface() {
