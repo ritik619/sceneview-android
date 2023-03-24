@@ -37,7 +37,7 @@ class SurfaceMirrorer(
                 sceneView.renderer.copyFrame(
                     mirror.swapChain!!,
                     // TODO could this be moved to [startMirroring]?
-                    getLetterboxViewport(sceneView.view.viewport, mirror.viewport),
+                    Viewport(0,0,1080,1920),
                     sceneView.view.viewport,
                     Renderer.MIRROR_FRAME_FLAG_COMMIT
                             or Renderer.MIRROR_FRAME_FLAG_SET_PRESENTATION_TIME
